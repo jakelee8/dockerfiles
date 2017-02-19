@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  squid:
+    build:
+      context: ../../images/squid
+    image: jakelee8/squid
+    environment:
+      CACHE_EFFECTIVE_USER: "13"
+      CACHE_EFFECTIVE_GROUP: "13"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    volumes:
+      - /data/docker-squid/squid.conf:/etc/squid/squid.conf.local:ro
+      - /data/docker-squid/cache:/var/cache/squid
+      - /data/docker-squid/log:/var/cache/log
+    ports:
+      - 3128:3128
